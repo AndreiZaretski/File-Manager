@@ -1,5 +1,7 @@
 import os from 'os';
 import { cmd } from './checkCmd/cmd.js';
+import {getCurrentDir} from './utils/currentDir.js';
+import path from 'path';
 
 const checkUser = async () =>{
   const args = process.argv.slice(2);
@@ -13,10 +15,14 @@ const checkUser = async () =>{
 
 const start = async ()=>{
   const username = await checkUser();
-  console.log(!!username, '\x1b[46m'+username+'\x1b[0m')
+  //console.log(!!username, '\x1b[46m'+username+'\x1b[0m')
   if(username) {
-    console.log(`Welcome to the File Manager, ${'\x1b[34m'}${username}${'\x1b[0m'}!`)
+    console.log(`Welcome to the File Manager, ${'\x1b[34m'}${username}${'\x1b[0m'}!`);
+    //console.log('1', path.parse(process.cwd()).root);
     process.chdir(os.homedir());
+    //console.log('2', path.parse(process.cwd()).root)
+    console.log(getCurrentDir());
+    
     //console.log('why is work?')
     await cmd(username);
   } else {
