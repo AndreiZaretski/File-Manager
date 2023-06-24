@@ -2,6 +2,9 @@ import readLine from 'readline';
 import { osInfo } from '../os/os-info.js';
 import {getCurrentDir} from '../utils/currentDir.js'
 import os from 'os';
+import { printCurrDirr } from '../nwd/prinListDir.js';
+import { goTuDir } from '../nwd/goToDir.js';
+import { goUp } from '../nwd/goUp.js';
 
 
 
@@ -19,6 +22,12 @@ export const cmd = async (username) => {
       case '': 
         console.log(getCurrentDir());
         break;
+
+      case 'up': goUp(); break;
+
+      case 'cd': goTuDir(args.slice(1).join(' ')); break;
+      
+      case 'ls': printCurrDirr(); break;
 
       case 'os': await osInfo(args[1]); break;
       //case
