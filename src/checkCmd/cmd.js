@@ -11,6 +11,7 @@ import { removeFile } from '../fs/deleteFile.js';
 import { parseStringPath } from '../utils/parsePathString.js';
 import { copyMoveFile } from '../fs/copyRemoveFile.js';
 import { renameFile } from '../fs/renameFile.js';
+import { calculateHash } from '../hash/calculateHash.js';
 
 
 export const cmd = async (username) => {
@@ -49,6 +50,8 @@ export const cmd = async (username) => {
       case 'mv': await copyMoveFile(args.slice(1).join(' '), true); break;
 
       case 'rn': await renameFile(args.slice(1).join(' ')); break;
+
+      case 'hash': await calculateHash(args.slice(1).join(' ')); break;
 
       case 'check': console.log(parseStringPath(args.slice(1).join(' ')));
       break;

@@ -7,7 +7,7 @@ export const goTuDir = (dirPath)=> {
     const driveLetterRegex = /^[A-Z]:$/i;
       if (dirPath.length === 2 && driveLetterRegex.test(dirPath)) {
       dirPath += '\\';}
-    let absolutePath = path.resolve(dirPath);
+    const absolutePath = path.resolve(dirPath);
 
     process.chdir(absolutePath);
     console.log(getCurrentDir());
