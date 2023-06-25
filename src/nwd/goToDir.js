@@ -4,6 +4,9 @@ import {getCurrentDir} from '../utils/currentDir.js';
 
 export const goTuDir = (dirPath)=> {
   try {
+    const driveLetterRegex = /^[A-Z]:$/i;
+      if (dirPath.length === 2 && driveLetterRegex.test(dirPath)) {
+      dirPath += '\\';}
     let absolutePath = path.resolve(dirPath);
 
     process.chdir(absolutePath);
@@ -11,7 +14,7 @@ export const goTuDir = (dirPath)=> {
 
 
   } catch (err) {
-    console.log(`${'\x1b[31m'}Something went wrong${'\x1b[0m'}`, err.message);
+    console.log(`${'\x1b[31m'}Operation failed${'\x1b[0m'}`, err.message);
     console.log(getCurrentDir());
   }
 }

@@ -7,7 +7,7 @@ export const osInfo = async (input) => {
     case '--EOL': console.log(JSON.stringify(os.EOL)); 
       console.log(getCurrentDir()); 
       break;
-    case '--cpus': console.log(`Overall amount of CPUS ${os.cpus().length}`);
+    case '--cpus': console.log(`Overall amount of CPUS ${'\x1b[31m'}${os.cpus().length}${'\x1b[0m'}`);
       console.table(os.cpus()
         .map((proc)=> ({Model: proc.model, 'Clock rate': `${proc.speed/1000} GHz`})));
       console.log(getCurrentDir());  
@@ -30,7 +30,7 @@ export const osInfo = async (input) => {
       console.log(getCurrentDir());
     }
   } catch (err) {
-    console.log(`${'\x1b[31m'}Something went wrong${'\x1b[0m'}`);
+    console.log(`${'\x1b[31m'}Operation failed${'\x1b[0m'}`, err.message);
     console.log(getCurrentDir());
   }
 }
