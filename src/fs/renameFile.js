@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import {getCurrentDir} from '../utils/currentDir.js';
 import { parseStringPath } from '../utils/parsePathString.js';
+import { checkFileExists } from '../utils/checkExistsFile.js';
 
 export const renameFile = async (pathFile) => {
   try {
@@ -10,8 +11,14 @@ export const renameFile = async (pathFile) => {
     const oldNamePath = path.resolve(source);
     const dirnameFile = path.dirname(oldNamePath);
 
-    console.log(dirnameFile);
+    //console.log(dirnameFile);
     const newNameDir = path.join(dirnameFile, target);
+
+    const isExists = await checkFileExists(newNameDir);
+
+    if (isExists) {
+      throw new Error('File already exists');
+    }
 
     await fs.promises.rename(oldNamePath, newNameDir);
 

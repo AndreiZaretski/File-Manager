@@ -4,16 +4,13 @@ import path from 'path';
 import {getCurrentDir} from '../utils/currentDir.js';
 
 export const calculateHash = async (pathToFile) => {
-    // Write your code here 
 
-  let hash = createHash('sha256');
+  const hash = createHash('sha256');
 
-// const __dirname = getDirname(import.meta.url);
-// const fileName = path.join(__dirname, 'files', 'fileToCalculateHashFor.txt');
   try {
-    let absolutePath = path.resolve(pathToFile);
+    const absolutePath = path.resolve(pathToFile);
 
-    let stream = createReadStream(absolutePath);
+    const stream = createReadStream(absolutePath);
 
     stream.setEncoding('utf8');
 

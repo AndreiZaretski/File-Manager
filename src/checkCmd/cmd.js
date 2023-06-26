@@ -1,7 +1,6 @@
 import readLine from 'readline';
 import { osInfo } from '../os/os-info.js';
-import {getCurrentDir} from '../utils/currentDir.js'
-import os from 'os';
+import {getCurrentDir} from '../utils/currentDir.js';
 import { printCurrDirr } from '../nwd/prinListDir.js';
 import { goTuDir } from '../nwd/goToDir.js';
 import { goUp } from '../nwd/goUp.js';
@@ -12,18 +11,18 @@ import { parseStringPath } from '../utils/parsePathString.js';
 import { copyMoveFile } from '../fs/copyRemoveFile.js';
 import { renameFile } from '../fs/renameFile.js';
 import { calculateHash } from '../hash/calculateHash.js';
+import { compressDecompressFile } from '../zip/compressDecompress.js';
 
 
 export const cmd = async (username) => {
   const rl = readLine.createInterface(process.stdin, process.stdout);
   
   rl.on('line', async (input)=>{
-    //console.log(`You are currently in ${process.cwd()}`);
-    const args = input.split(' ');
-    //console.log(args);
+    
+    const args = input.trim().split(' ');
+    
     switch (args[0].trim()) {
       case '.exit': rl.close(); break;
-      //process.exit(0);
       
       case '': 
         console.log(getCurrentDir());
@@ -31,31 +30,35 @@ export const cmd = async (username) => {
 
       case 'up': goUp(); break;
 
-      case 'cd': goTuDir(args.slice(1).join(' ')); break;
+      case 'cd': goTuDir(args.slice(1).join(' ').trim()); break;
       
       case 'ls': printCurrDirr(); break;
 
       case 'os': await osInfo(args[1]); break;
+      
+      case 'cat': readFile(args.slice(1).join(' ').trim()); break;
 
-      case 'cat': readFile(args.slice(1).join(' ')); break;
-
-      case 'add': await createNewFile(args.slice(1).join(' ')); 
+      case 'add': await createNewFile(args.slice(1).join(' ').trim()); 
         break;
 
-      case 'rm': await removeFile(args.slice(1).join(' '));
+      case 'rm': await removeFile(args.slice(1).join(' ').trim());
         break;
 
-      case 'cp': await copyMoveFile(args.slice(1).join(' '), false); break;
+      case 'cp': await copyMoveFile(args.slice(1).join(' ').trim(), false); break;
 
-      case 'mv': await copyMoveFile(args.slice(1).join(' '), true); break;
+      case 'mv': await copyMoveFile(args.slice(1).join(' ').trim(), true); break;
 
-      case 'rn': await renameFile(args.slice(1).join(' ')); break;
+      case 'rn': await renameFile(args.slice(1).join(' ').trim()); break;
 
-      case 'hash': await calculateHash(args.slice(1).join(' ')); break;
+      case 'hash': await calculateHash(args.slice(1).join(' ').trim()); break;
 
-      case 'check': console.log(parseStringPath(args.slice(1).join(' ')));
+      case 'check': console.log(parseStringPath(args.slice(1).join(' ').trim()));
       break;
-      //case
+
+      case 'compress': await compressDecompressFile(args.slice(1).join(' ').trim(), true); break;
+
+      case 'decompress': await compressDecompressFile(args.slice(1).join(' ').trim(), false); break;
+      
       default: console.log('Invalid input');
     }
 

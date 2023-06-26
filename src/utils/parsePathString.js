@@ -12,9 +12,9 @@ export const parseStringPath = (str)=> {
     return {source: firstPath, target: secondPath};
     }
     return {source: elements[0].replace('\\0' || '\0', ''),
-    target: elements[1]}
+    target: elements[1] ? elements[1]:''}
     }
     
-    return {source: elements[0], target: elements[1]};
+    return {source: elements[0], target: elements[1] ? elements[1]:''};
 
 }
