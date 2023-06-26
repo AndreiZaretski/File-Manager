@@ -9,6 +9,10 @@ import { checkFileExists } from '../utils/checkExistsFile.js';
 export const compressDecompressFile = async (str, isCompress) => {
   try {
     const {source, target} = parseStringPath(str);
+
+    if (!source || !target) {
+      throw new Error('Invalid arguments');
+    }
   
     const sourcePath = path.resolve(source);
     const destinationPath = path.resolve(target);

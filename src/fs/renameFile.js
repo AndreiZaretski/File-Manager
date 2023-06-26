@@ -8,6 +8,10 @@ export const renameFile = async (pathFile) => {
   try {
     const {source, target} = parseStringPath(pathFile);
 
+    if (!source || !target) {
+      throw new Error('Invalid arguments');
+    }
+
     const oldNamePath = path.resolve(source);
     const dirnameFile = path.dirname(oldNamePath);
 
