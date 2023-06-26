@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import {getCurrentDir} from '../utils/currentDir.js';
 
 
@@ -11,14 +10,12 @@ export const printCurrDirr = async ()=> {
     const dirArray = [];
     const fileArray = [];
 
-    //console.table(dirContent.map(el=>el.name.slice(0, 90)));
-
     for(let elem of dirContent) {
        if(elem.isDirectory()) {
-        dirArray.push({Name: elem.name.slice(0,70), Type: 'directory'});
+        dirArray.push({Name: elem.name, Type: 'directory'});
        }
        if(elem.isFile()) {
-        fileArray.push({Name: elem.name.slice(0,70), Type: 'file'});
+        fileArray.push({Name: elem.name, Type: 'file'});
        }
     }
 

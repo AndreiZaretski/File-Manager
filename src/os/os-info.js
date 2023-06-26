@@ -3,7 +3,8 @@ import {getCurrentDir} from '../utils/currentDir.js'
 
 export const osInfo = async (input) => {
   try{
-    switch (input.trim()) {
+    const arg = input.split(' ')[0].trim();
+    switch (arg) {
     case '--EOL': console.log(JSON.stringify(os.EOL)); 
       console.log(getCurrentDir()); 
       break;
@@ -26,7 +27,7 @@ export const osInfo = async (input) => {
       console.log(getCurrentDir());
       break;
 
-    default: console.log('\x1b[31m'+'Invalid input. Please enter a command like os --arg'+'\x1b[0m');
+    default: console.log('\x1b[31m'+'Invalid input.'+'\x1b[0m');
       console.log(getCurrentDir());
     }
   } catch (err) {

@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import {getCurrentDir} from '../utils/currentDir.js';
 
 export const goUp = () => {

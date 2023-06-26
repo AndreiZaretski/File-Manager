@@ -15,7 +15,6 @@ export const renameFile = async (pathFile) => {
     const oldNamePath = path.resolve(source);
     const dirnameFile = path.dirname(oldNamePath);
 
-    //console.log(dirnameFile);
     const newNameDir = path.join(dirnameFile, target);
 
     const isExists = await checkFileExists(newNameDir);

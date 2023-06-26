@@ -14,8 +14,6 @@ export const copyMoveFile = async (str, deleteSource) => {
       throw new Error('Invalid arguments');
     }
 
-  //console.log(source, target);
-
     const sourcePath = path.resolve(source);
     const fileName = path.basename(sourcePath);
     const targetDir = path.resolve(target);
@@ -48,5 +46,5 @@ export const copyMoveFile = async (str, deleteSource) => {
 }
 
 const copeMoveWord = (flag) => {
-  return flag ? 'move': 'copy';
+  return flag ? 'moved': 'copied';
 }

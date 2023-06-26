@@ -12,6 +12,7 @@ import { copyMoveFile } from '../fs/copyRemoveFile.js';
 import { renameFile } from '../fs/renameFile.js';
 import { calculateHash } from '../hash/calculateHash.js';
 import { compressDecompressFile } from '../zip/compressDecompress.js';
+import { checkArgsLength } from '../utils/checkArgsLength.js';
 
 
 export const cmd = async (username) => {
@@ -20,46 +21,63 @@ export const cmd = async (username) => {
   rl.on('line', async (input)=>{
     
     const args = input.trim().split(' ');
+
+    const argsForFunction = args.slice(1).join(' ').trim();
     
     switch (args[0].trim()) {
-      case '.exit': rl.close(); break;
-      
-      case '': 
-        console.log(getCurrentDir());
-        break;
-
-      case 'up': goUp(); break;
-
-      case 'cd': goTuDir(args.slice(1).join(' ').trim()); break;
-      
-      case 'ls': printCurrDirr(); break;
-
-      case 'os': await osInfo(args[1]); break;
-      
-      case 'cat': readFile(args.slice(1).join(' ').trim()); break;
-
-      case 'add': await createNewFile(args.slice(1).join(' ').trim()); 
-        break;
-
-      case 'rm': await removeFile(args.slice(1).join(' ').trim());
-        break;
-
-      case 'cp': await copyMoveFile(args.slice(1).join(' ').trim(), false); break;
-
-      case 'mv': await copyMoveFile(args.slice(1).join(' ').trim(), true); break;
-
-      case 'rn': await renameFile(args.slice(1).join(' ').trim()); break;
-
-      case 'hash': await calculateHash(args.slice(1).join(' ').trim()); break;
-
-      case 'check': console.log(parseStringPath(args.slice(1).join(' ').trim()));
+      case '.exit': rl.close(); 
       break;
-
-      case 'compress': await compressDecompressFile(args.slice(1).join(' ').trim(), true); break;
-
-      case 'decompress': await compressDecompressFile(args.slice(1).join(' ').trim(), false); break;
       
-      default: console.log('Invalid input');
+      case '': console.log(getCurrentDir());
+        break;
+
+      case 'up': goUp(); 
+        break;
+
+      case 'cd': goTuDir(argsForFunction); 
+        break;
+      
+      case 'ls': printCurrDirr(); 
+        break;
+
+      case 'os': await osInfo(argsForFunction); 
+        break;
+      
+      case 'cat': await readFile(argsForFunction); 
+        break;
+
+      case 'add': await createNewFile(argsForFunction); 
+        break;
+
+      case 'rm': await removeFile(argsForFunction);
+        break;
+
+      case 'cp': if(checkArgsLength(argsForFunction)) { 
+        await copyMoveFile(argsForFunction, false); }
+        break;
+
+      case 'mv': if(checkArgsLength(argsForFunction)) { 
+        await copyMoveFile(argsForFunction, true); }
+        break;
+
+      case 'rn': if(checkArgsLength(argsForFunction)) {
+        await renameFile(argsForFunction); }
+        break;
+
+      case 'hash': await calculateHash(argsForFunction); break;
+
+      case 'check': console.log(parseStringPath(argsForFunction));
+        break;
+
+      case 'compress': if(checkArgsLength(argsForFunction)) {
+        await compressDecompressFile(argsForFunction, true); }
+        break;
+
+      case 'decompress': if(checkArgsLength(argsForFunction)) {
+        await compressDecompressFile(argsForFunction, false); }
+        break;
+      
+      default: console.log(`${'\x1b[31m'}Invalid input${'\x1b[0m'}`);
     }
 
   });

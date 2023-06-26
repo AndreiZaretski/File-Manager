@@ -9,7 +9,6 @@ export const readFile = async (pathToFile) => {
     const readStream = createReadStream(path.resolve(pathToFile), {encoding: 'utf8'});
     
     readStream.on('data', chunk => {
-      //process.stdout.write(chunk);
       console.log(chunk, '\n');
     });
 
