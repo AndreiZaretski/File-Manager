@@ -25,7 +25,7 @@ export const cmd = async (username) => {
     const argsForFunction = args.slice(1).join(' ').trim();
     
     switch (args[0].trim()) {
-      case '.exit': rl.close(); 
+      case '.exit': rl.close();
       break;
       
       case '': console.log(getCurrentDir());

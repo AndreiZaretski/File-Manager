@@ -13,7 +13,7 @@ export const goTuDir = (dirPath)=> {
 
 
   } catch (err) {
-    console.log(`${'\x1b[31m'}Operation failed${'\x1b[0m'}`, err.message);
+    console.log(`${'\x1b[31m'}Operation failed${'\x1b[0m'}`);
     console.log(getCurrentDir());
   }
 }
